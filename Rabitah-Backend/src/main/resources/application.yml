@@ -44,3 +44,5 @@ rabitah:
       endpoint: ${RABITAH_S3_ENDPOINT:}
       access-key: ${RABITAH_S3_ACCESS_KEY:}
       secret-key: ${RABITAH_S3_SECRET_KEY:}
+      # Supabase's S3 endpoint requires bucket names in the request path.
+      path-style: ${RABITAH_S3_PATH_STYLE:false}

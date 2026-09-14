@@ -1,0 +1,43 @@
+name: Build desktop apps
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+jobs:
+  package:
+    name: ${{ matrix.name }} app image
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: Linux
+            command: bash scripts/package-desktop.sh
+            artifact: dist/Rabitah
+          - os: windows-latest
+            name: Windows
+            command: powershell -ExecutionPolicy Bypass -File scripts/package-desktop.ps1
+            artifact: dist/Rabitah
+          - os: macos-latest
+            name: macOS
+            command: bash scripts/package-desktop.sh
+            artifact: dist/Rabitah.app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Build app image
+        env:
+          RABITAH_API_BASE_URL: https://rabitah-projectm-production.up.railway.app/api/v1
+        run: ${{ matrix.command }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Rabitah-${{ matrix.name }}
+          path: ${{ matrix.artifact }}
+          if-no-files-found: error

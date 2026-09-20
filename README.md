@@ -4,6 +4,13 @@ Rabitah is a Java 21 university social and academic desktop application. The rep
 
 Presentation Video link: https://www.youtube.com/watch?v=y5VeMm9slmc
 
+This project is made by -
+- Ahmad Abdullah Jameel 230041211
+- Khandaker Musabbir Ashad 230041253
+- Miraz Un Naim 230041241
+
+for CSE4402 final project
+
 ## Prerequisites
 
 - Java 21
